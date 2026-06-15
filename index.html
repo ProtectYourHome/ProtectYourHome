@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProtectYourHome – Film Solaire Suisse</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --gold: #c9a227;
+      --gold-light: #f0c040;
+      --gold-dim: rgba(201, 162, 39, 0.15);
+      --dark: #080808;
+      --dark2: #111111;
+      --dark3: #1a1a1a;
+      --dark4: #222222;
+      --text: #e8e8e8;
+      --text-muted: #888;
+      --radius: 10px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 70px;
+      background: rgba(8, 8, 8, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 162, 39, 0.25);
+      transition: box-shadow .3s;
+    }
+
+    nav.scrolled {
+      box-shadow: 0 4px 30px rgba(0, 0, 0, .6);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo .icon {
+      width: 38px;
+      height: 38px;
+      background: var(--gold);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .nav-logo .name {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .nav-logo .name span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .nav-cta {
+      background: var(--gold);
+      color: #000;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 10px 22px;
+      border-radius: 6px;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 5% 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=80') center/cover no-repeat;
+      filter: brightness(0.22);
+      transform: scale(1.05);
+      animation: heroZoom 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroZoom {
+      from {
+        transform: scale(1.05);
+      }
+
+      to {
+        transform: scale(1.12);
+      }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, rgba(8, 8, 8, .92) 45%, rgba(8, 8, 8, .4) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-dim);
+      border: 1px solid rgba(201, 162, 39, .4);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 76px);
+      font-weight: 900;
+      line-height: .95;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      color: var(--gold);
+      font-style: normal;
+      display: block;
+    }
+
+    .hero p {
+      font-size: 17px;
+      color: #ccc;
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #000;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 15px 34px;
+      border-radius: 8px;
+      transition: all .2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201, 162, 39, .35);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, .25);
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 15px 30px;
+      border-radius: 8px;
+      transition: all .2s;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .hero-guarantee {
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    .hero-guarantee span {
+      color: var(--gold);
+      font-size: 18px;
+    }
+
+    /* STATS */
+    .stats-bar {
+      background: var(--gold);
+      padding: 22px 5%;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-item .num {
+      font-size: 28px;
+      font-weight: 900;
+      color: #000;
+      line-height: 1;
+    }
+
+    .stat-item .label {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(0, 0, 0, .65);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 3px;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 90px 5%;
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .section-title em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 54px;
+    }
+
+    /* AVANTAGES */
+    #avantages {
+      background: var(--dark2);
+    }
+
+    .avantages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .avantage-card {
+      background: var(--dark3);
+      border: 1px solid #252525;
+      border-top: 3px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .avantage-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .5);
+    }
+
+    .avantage-card .ico {
+      width: 52px;
+      height: 52px;
+      background: var(--gold-dim);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+
+    .avantage-card h3 {
+      font-size: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      letter-spacing: .5px;
+      margin-bottom: 6px;
+    }
+
+    .avantage-card .kpi {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .avantage-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ══ AVANT / APRÈS ══ */
+    #avant-apres {
+      background: var(--dark);
+    }
+
+    .comparison-wrapper {
+      max-width: 820px;
+      margin: 0 auto;
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: col-resize;
+      user-select: none;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .7);
+      border: 2px solid #252525;
+    }
+
+    /* Image AVANT (fond complet) */
+    .img-avant {
+      display: block;
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      filter: brightness(1.25) saturate(1.3) contrast(1.1);
+    }
+
+    /* Image APRÈS (superposée, rognée à gauche) */
+    .img-apres-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+      border-right: 3px solid var(--gold);
+    }
+
+    .img-apres-wrap img {
+      width: 820px;
+      max-width: none;
+      height: 500px;
+      object-fit: cover;
+      filter: brightness(0.78) saturate(0.75) hue-rotate(10deg);
+    }
+
+    /* Labels superposés */
+    .cmp-label {
+      position: absolute;
+      bottom: 20px;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      z-index: 15;
+      pointer-events: none;
+      backdrop-filter: blur(4px);
+    }
+
+    .cmp-label-avant {
+      right: 16px;
+      background: rgba(230, 60, 60, 0.88);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .4);
+    }
+
+    .cmp-label-apres {
+      left: 16px;
+      background: rgba(201, 162, 39, 0.92);
+      color: #000;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .4);
+    }
+
+    .cmp-hint {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .15);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    /* Ligne + poignée */
+    .cmp-divider {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 3px;
+      height: 100%;
+      background: var(--gold);
+      transform: translateX(-50%);
+    }
+
+    .cmp-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 900;
+      color: #000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .6);
+      pointer-events: none;
+      border: 3px solid #fff;
+    }
+
+    /* Descriptions sous le slider */
+    .cmp-captions {
+      max-width: 820px;
+      margin: 18px auto 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .cmp-caption {
+      background: var(--dark3);
+      border-radius: 8px;
+      padding: 14px 18px;
+      border: 1px solid #252525;
+    }
+
+    .cmp-caption.bad {
+      border-left: 3px solid #e63c3c;
+    }
+
+    .cmp-caption.good {
+      border-left: 3px solid var(--gold);
+    }
+
+    .cmp-caption .ctitle {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .cmp-caption.bad .ctitle {
+      color: #e63c3c;
+    }
+
+    .cmp-caption.good .ctitle {
+      color: var(--gold);
+    }
+
+    .cmp-caption ul {
+      list-style: none;
+    }
+
+    .cmp-caption ul li {
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 2px 0;
+    }
+
+    .cmp-caption.bad ul li::before {
+      content: "✗ ";
+      color: #e63c3c;
+      font-weight: 700;
+    }
+
+    .cmp-caption.good ul li::before {
+      content: "✓ ";
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* APPLICATIONS */
+    #applications {
+      background: var(--dark2);
+    }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+    }
+
+    .app-card {
+      background: var(--dark3);
+      border: 1px solid #252525;
+      border-radius: var(--radius);
+      padding: 24px 16px;
+      text-align: center;
+      transition: all .2s;
+    }
+
+    .app-card:hover {
+      border-color: var(--gold);
+      background: var(--dark4);
+    }
+
+    .app-card .app-ico {
+      font-size: 34px;
+      margin-bottom: 12px;
+    }
+
+    .app-card h4 {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--text);
+    }
+
+    .app-card p {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+
+    /* TÉMOIGNAGES */
+    #temoignages {
+      background: var(--dark);
+    }
+
+    .temoignages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .temoignage-card {
+      background: var(--dark2);
+      border: 1px solid #252525;
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      position: relative;
+    }
+
+    .temoignage-card::before {
+      content: '"';
+      position: absolute;
+      top: 16px;
+      right: 22px;
+      font-size: 72px;
+      color: var(--gold-dim);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .stars {
+      color: var(--gold);
+      font-size: 16px;
+      margin-bottom: 14px;
+      letter-spacing: 2px;
+    }
+
+    .temoignage-card p {
+      font-size: 14px;
+      color: #ccc;
+      line-height: 1.7;
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .reviewer-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .reviewer-info .name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .reviewer-info .loc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* FORMULAIRE */
+    #devis {
+      background: linear-gradient(135deg, var(--dark2) 0%, #0f0a00 100%);
+      border-top: 1px solid #222;
+    }
+
+    .devis-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .devis-info h2 {
+      font-size: 32px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .devis-info p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .devis-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .contact-line {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .contact-line .ico2 {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      background: var(--gold-dim);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .contact-line .phone {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    .contact-line .sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    form.devis-form {
+      background: var(--dark3);
+      border: 1px solid #2a2a2a;
+      border-radius: 14px;
+      padding: 36px 32px;
+    }
+
+    form.devis-form h3 {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 7px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      background: var(--dark4);
+      border: 1px solid #333;
+      border-radius: 7px;
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border .2s;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201, 162, 39, .1);
+    }
+
+    select option {
+      background: var(--dark3);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 6px;
+      background: var(--gold);
+      color: #000;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .form-submit:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    .form-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid #1e1e1e;
+      padding: 32px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-brand .name {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .footer-brand .name span {
+      color: var(--gold);
+    }
+
+    .footer-brand .sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .footer-badges {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .footer-badge span {
+      font-size: 15px;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #444;
+    }
+
+    /* ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      background: var(--gold);
+      color: #000;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 14px 24px;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .5);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all .4s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:768px) {
+      nav .nav-links {
+        display: none;
+      }
+
+      .devis-layout {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .img-avant,
+      .img-apres-wrap img {
+        height: 280px;
+      }
+
+      .img-apres-wrap img {
+        width: 100vw;
+      }
+
+      .cmp-captions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <div class="icon">🏠</div>
+      <div class="name">PROTECT<span>YOUR</span>HOME</div>
+    </div>
+    <div class="nav-links">
+      <a href="#avantages">Avantages</a>
+      <a href="#avant-apres">Avant/Après</a>
+      <a href="#applications">Applications</a>
+      <a href="#temoignages">Avis</a>
+      <a href="#devis">Contact</a>
+    </div>
+    <a href="#devis" class="nav-cta">Devis gratuit →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="accueil">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content fade-up visible">
+      <div class="hero-badge">🇨🇭 &nbsp;Expert à Sion &amp; dans toute la Suisse</div>
+      <h1>Film<br><em>Solaire</em><br>Professionnel</h1>
+      <p>Protégez votre maison et votre famille contre la chaleur, les UV et les intrusions — avec un film discret,
+        durable et garanti jusqu'à vie.</p>
+      <div class="hero-actions">
+        <a href="#devis" class="btn-primary">Demander un devis gratuit</a>
+        <a href="#avant-apres" class="btn-secondary">Voir le résultat</a>
+      </div>
+      <div class="hero-guarantee">
+        <span>🛡️</span>
+        <span>Garantie 10 ans — certains films à vie &nbsp;·&nbsp; Devis gratuit &amp; sans engagement</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="num">80%</div>
+      <div class="label">Chaleur bloquée</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">99%</div>
+      <div class="label">UV filtrés</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">10 ans</div>
+      <div class="label">De garantie</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">100%</div>
+      <div class="label">Swiss made 🇨🇭</div>
+    </div>
+  </div>
+
+  <!-- AVANTAGES -->
+  <section id="avantages">
+    <div class="section-eyebrow">Pourquoi choisir un film solaire ?</div>
+    <h2 class="section-title">4 bénéfices <em>immédiats</em><br>pour votre vitrage</h2>
+    <p class="section-sub">Un seul film, posé en quelques heures, qui transforme durablement votre confort, votre
+      sécurité et la valeur de votre bien.</p>
+    <div class="avantages-grid">
+      <div class="avantage-card fade-up">
+        <div class="ico">🔒</div>
+        <h3>Anti Effraction</h3>
+        <div class="kpi">Intrusion retardée · Vitrages renforcés</div>
+        <p>Le film maintient les éclats de verre en cas de choc. Il dissuade les tentatives d'intrusion et offre une
+          protection invisible mais efficace.</p>
+      </div>
+      <div class="avantage-card fade-up">
+        <div class="ico">🌡️</div>
+        <h3>Anti Chaleur</h3>
+        <div class="kpi">Jusqu'à 80 % de chaleur solaire bloquée</div>
+        <p>Un intérieur frais en été sans climatisation excessive. Réduisez votre facture d'énergie tout en améliorant
+          votre confort au quotidien.</p>
+      </div>
+      <div class="avantage-card fade-up">
+        <div class="ico">☀️</div>
+        <h3>Anti UV</h3>
+        <div class="kpi">99 % des rayons UV filtrés</div>
+        <p>Vos meubles, parquets, tableaux et revêtements restent intacts. Votre peau et vos yeux sont préservés sans
+          occulter la lumière naturelle.</p>
+      </div>
+      <div class="avantage-card fade-up">
+        <div class="ico">👁️</div>
+        <h3>Confort Visuel</h3>
+        <div class="kpi">Moins d'éblouissement · Moins de reflets</div>
+        <p>Lumière douce et diffuse à toute heure. Profitez de votre vue et de votre écran sans subir les reflets ou la
+          réverbération du soleil.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVANT / APRÈS -->
+  <section id="avant-apres">
+    <div class="section-eyebrow">Résultat visible</div>
+    <h2 class="section-title">Avant &amp; <em>Après</em> la pose</h2>
+    <p class="section-sub">Glissez le curseur pour voir la différence. À gauche : avec film solaire. À droite : sans
+      protection.</p>
+
+    <div class="comparison-wrapper fade-up" id="comparer">
+
+      <!-- AVANT : intérieur lumineux avec éblouissement (fond) -->
+      <img class="img-avant" src="https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?w=820&q=85"
+        alt="Avant pose film – chaleur et éblouissement">
+
+      <!-- APRÈS : intérieur confortable avec lumière tamisée (superposé) -->
+      <div class="img-apres-wrap" id="imgApres">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=820&q=85"
+          alt="Après pose film – intérieur protégé et confortable">
+      </div>
+
+      <!-- Labels flottants -->
+      <div class="cmp-label cmp-label-apres">✦ Avec film</div>
+      <div class="cmp-label cmp-label-avant">Sans film</div>
+      <div class="cmp-hint">⇆ Faites glisser pour comparer</div>
+
+      <!-- Curseur -->
+      <div class="cmp-divider" id="cmpDivider">
+        <div class="cmp-handle">⇆</div>
+      </div>
+
+    </div>
+
+    <!-- Descriptions comparatives -->
+    <div class="cmp-captions">
+      <div class="cmp-caption good">
+        <div class="ctitle">✦ Avec film solaire</div>
+        <ul>
+          <li>Lumière naturelle douce et tamisée</li>
+          <li>Chaleur solaire réduite jusqu'à 80 %</li>
+          <li>99 % des UV bloqués</li>
+          <li>Meubles et parquets protégés</li>
+          <li>Vitrage renforcé anti-effraction</li>
+        </ul>
+      </div>
+      <div class="cmp-caption bad">
+        <div class="ctitle">Sans film solaire</div>
+        <ul>
+          <li>Éblouissement et reflets gênants</li>
+          <li>Chaleur excessive en été</li>
+          <li>UV dégradent meubles et revêtements</li>
+          <li>Facture d'énergie plus élevée</li>
+          <li>Vitrage sans protection en cas de choc</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATIONS -->
+  <section id="applications">
+    <div class="section-eyebrow">Domaines d'application</div>
+    <h2 class="section-title">Applicable sur <em>tous types</em><br>de surfaces vitrées</h2>
+    <p class="section-sub">Du particulier au professionnel — partout où il y a du verre ou un écran, nous intervenons.
+    </p>
+    <div class="apps-grid">
+      <div class="app-card fade-up">
+        <div class="app-ico">🏠</div>
+        <h4>Résidentiel</h4>
+        <p>Fenêtres, baies vitrées, vérandas</p>
+      </div>
+      <div class="app-card fade-up">
+        <div class="app-ico">🏪</div>
+        <h4>Commerces</h4>
+        <p>Vitrines, devantures, showrooms</p>
+      </div>
+      <div class="app-card fade-up">
+        <div class="app-ico">🏢</div>
+        <h4>Bureaux</h4>
+        <p>Open spaces, cloisons vitrées</p>
+      </div>
+      <div class="app-card fade-up">
+        <div class="app-ico">🚌</div>
+        <h4>Transport &amp; urbain</h4>
+        <p>Abris bus, gares, verrières</p>
+      </div>
+      <div class="app-card fade-up">
+        <div class="app-ico">🏧</div>
+        <h4>Équipements</h4>
+        <p>Distributeurs automatiques</p>
+      </div>
+      <div class="app-card fade-up">
+        <div class="app-ico">🖥️</div>
+        <h4>Écrans</h4>
+        <p>TV, PC, tablettes, smartphones</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TÉMOIGNAGES -->
+  <section id="temoignages">
+    <div class="section-eyebrow">Ils nous ont fait confiance</div>
+    <h2 class="section-title">Ce que disent<br>nos <em>clients</em></h2>
+    <p class="section-sub">Des particuliers et professionnels satisfaits à travers toute la Suisse.</p>
+    <div class="temoignages-grid">
+      <div class="temoignage-card fade-up">
+        <div class="stars">★★★★★</div>
+        <p>Pose rapide, propre, et le résultat est bluffant. Mon salon est nettement plus frais cet été et mes parquets
+          ne décolorent plus. Je recommande sans hésiter.</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">👩</div>
+          <div class="reviewer-info">
+            <div class="name">Sophie M.</div>
+            <div class="loc">Sion, Valais</div>
+          </div>
+        </div>
+      </div>
+      <div class="temoignage-card fade-up">
+        <div class="stars">★★★★★</div>
+        <p>J'ai fait poser le film anti-effraction sur les vitres de mon commerce. Équipe professionnelle, service
+          impeccable. Ma devanture est protégée et ça ne se voit même pas.</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">👨</div>
+          <div class="reviewer-info">
+            <div class="name">Marc D.</div>
+            <div class="loc">Monthey, Valais</div>
+          </div>
+        </div>
+      </div>
+      <div class="temoignage-card fade-up">
+        <div class="stars">★★★★★</div>
+        <p>Très satisfaite du résultat. On a maintenant une belle vue sur les montagnes sans la chaleur ni
+          l'éblouissement. Le devis était gratuit et le tarif tout à fait raisonnable.</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">👩</div>
+          <div class="reviewer-info">
+            <div class="name">Isabelle R.</div>
+            <div class="loc">Martigny, Valais</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULAIRE DEVIS -->
+  <section id="devis">
+    <div class="devis-layout">
+      <div class="devis-info fade-up">
+        <div class="section-eyebrow">Contactez-nous</div>
+        <h2>Devis gratuit<br>&amp; <em style="color:var(--gold);font-style:normal">sans engagement</em></h2>
+        <p>Décrivez votre projet et nous vous rappelons sous 24h pour établir votre devis personnalisé. Intervention à
+          Sion et dans toute la Suisse.</p>
+        <div class="devis-contacts">
+          <div class="contact-line">
+            <div class="ico2">📞</div>
+            <div>
+              <div class="phone">078 337 68 34</div>
+              <div class="sub">Disponible du lundi au samedi</div>
+            </div>
+          </div>
+          <div class="contact-line">
+            <div class="ico2">📍</div>
+            <div>
+              <div>Sion &amp; toute la Suisse 🇨🇭</div>
+              <div class="sub">Intervention rapide partout</div>
+            </div>
+          </div>
+          <div class="contact-line">
+            <div class="ico2">⏱️</div>
+            <div>
+              <div>Réponse sous 24h</div>
+              <div class="sub">Service rapide &amp; discret</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <form class="devis-form" id="devisForm">
+          <h3>📋 Demander mon devis</h3>
+          <div class="form-row">
+            <div class="form-group"><label>Prénom *</label><input type="text" name="prenom" placeholder="Jean" required>
+            </div>
+            <div class="form-group"><label>Nom *</label><input type="text" name="nom" placeholder="Dupont" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Téléphone *</label><input type="tel" name="tel" placeholder="079 000 00 00"
+                required></div>
+            <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="jean@exemple.ch">
+            </div>
+          </div>
+          <div class="form-group"><label>Localité *</label><input type="text" name="localite"
+              placeholder="Sion, Martigny, Genève…" required></div>
+          <div class="form-group">
+            <label>Type de surface</label>
+            <select name="surface">
+              <option value="">— Sélectionner —</option>
+              <option>Fenêtres / baies vitrées résidentielles</option>
+              <option>Vitrine commerciale</option>
+              <option>Bureaux / open space</option>
+              <option>Distributeur automatique</option>
+              <option>Abri bus / transport</option>
+              <option>Écrans (TV, PC, tablette)</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Votre besoin principal</label>
+            <select name="besoin">
+              <option value="">— Sélectionner —</option>
+              <option>Anti chaleur / énergie</option>
+              <option>Anti UV / protection intérieur</option>
+              <option>Anti effraction / sécurité</option>
+              <option>Confort visuel / éblouissement</option>
+              <option>Combiné plusieurs besoins</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Message (optionnel)</label><textarea name="message"
+              placeholder="Décrivez votre projet, les dimensions approximatives, toute info utile…"></textarea></div>
+          <button type="submit" class="form-submit">Envoyer ma demande de devis →</button>
+          <p class="form-note">🔒 Vos données sont confidentielles. Aucun spam, jamais.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <div class="name">PROTECT<span>YOUR</span>HOME</div>
+      <div class="sub">Film Solaire · Protection · Sécurité · Sion, Suisse</div>
+    </div>
+    <div class="footer-badges">
+      <div class="footer-badge"><span>🇨🇭</span> Expertise suisse</div>
+      <div class="footer-badge"><span>⭐</span> Films pro garantis</div>
+      <div class="footer-badge"><span>⚡</span> Intervention rapide</div>
+    </div>
+    <div class="footer-copy">© 2025 ProtectYourHome — Tous droits réservés</div>
+  </footer>
+
+  <div class="toast" id="toast">✅ Demande envoyée ! Nous vous rappelons sous 24h.</div>
+
+  <script>
+    /* NAV scroll */
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+    /* Fade-up on scroll */
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    fadeEls.forEach(el => obs.observe(el));
+
+    /* Avant/Après slider */
+    (function () {
+      const wrapper = document.getElementById('comparer');
+      const apresDiv = document.getElementById('imgApres');
+      const divider = document.getElementById('cmpDivider');
+      let dragging = false;
+
+      function setPos(clientX) {
+        const rect = wrapper.getBoundingClientRect();
+        let pct = ((clientX - rect.left) / rect.width) * 100;
+        pct = Math.max(5, Math.min(95, pct));
+        apresDiv.style.width = pct + '%';
+        divider.style.left = pct + '%';
+      }
+
+      wrapper.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); });
+      window.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
+      window.addEventListener('mouseup', () => dragging = false);
+      wrapper.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener('touchend', () => dragging = false);
+    })();
+
+    /* Formulaire */
+    document.getElementById('devisForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4500);
+      this.reset();
+    });
+  </script>
+</body>
+
+</html>

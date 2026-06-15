@@ -1339,13 +1339,35 @@
       window.addEventListener('touchend', () => dragging = false);
     })();
 
-    /* Formulaire */
-    document.getElementById('devisForm').addEventListener('submit', function (e) {
+    /* Formulaire → Formspree (AJAX) */
+    document.getElementById('devisForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      const toast = document.getElementById('toast');
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 4500);
-      this.reset();
+      const form = this;
+      const btn = form.querySelector('.form-submit');
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours…';
+
+      try {
+        const res = await fetch('https://formspree.io/f/mojzryeb', {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          const toast = document.getElementById('toast');
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 5000);
+          form.reset();
+        } else {
+          alert('Une erreur est survenue. Appelez-nous directement au 078 337 68 34.');
+        }
+      } catch (err) {
+        alert('Erreur réseau. Appelez-nous directement au 078 337 68 34.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Envoyer ma demande de devis →';
+      }
     });
   </script>
 </body>
